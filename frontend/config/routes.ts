@@ -34,7 +34,8 @@ export default [
     icon: 'crown',
     access: 'canAdmin',
     routes: [
-      {
+
+/*      {
         path: '/admin',
         redirect: '/admin/sub-page',
       },
@@ -43,14 +44,26 @@ export default [
         name: 'sub-page',
         component: './Admin',
       },
+*/
+
+      {
+        name: '接口管理',
+        icon: 'table',
+        path: '/admin/interface_info',
+        // component: './TableList',
+        component: './InterfaceInfo',
+      }
     ],
   },
+
+/* 查询表格
   {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',
     component: './TableList',
-  },
+  },*/
+
   {
     path: '/',
     redirect: '/welcome',

@@ -29,6 +29,7 @@ export const requestConfig: RequestConfig = {
   withCredentials: true,
 
   // 错误处理： umi@3 的错误处理方案。
+/*
   errorConfig: {
     // 错误抛出
     errorThrower: (res) => {
@@ -87,6 +88,7 @@ export const requestConfig: RequestConfig = {
       }
     },
   },
+*/
 
   // 请求拦截器
   requestInterceptors: [
@@ -103,8 +105,9 @@ export const requestConfig: RequestConfig = {
       // 拦截响应数据，进行个性化处理
       const { data } = response as unknown as ResponseStructure;
 
-      if (data?.success === false) {
-        message.error('请求失败！');
+      console.log('data', data);
+      if (data.code !== 0) {
+        throw new Error(data.message);
       }
       return response;
     },

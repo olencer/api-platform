@@ -114,9 +114,9 @@ const Welcome: React.FC = () => {
               color: token.colorTextHeading,
             }}
           >
-            欢迎使用 Ant Design Pro
+            欢迎使用 Api Platform
           </div>
-          <p
+{/*          <p
             style={{
               fontSize: '14px',
               color: token.colorTextSecondary,
@@ -154,7 +154,7 @@ const Welcome: React.FC = () => {
               href="https://procomponents.ant.design"
               desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
             />
-          </div>
+          </div>*/}
         </div>
       </Card>
     </PageContainer>
