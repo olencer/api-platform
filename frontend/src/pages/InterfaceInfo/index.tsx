@@ -1,7 +1,3 @@
-import {
-  removeRule,
-  updateRule
-} from '@/services/ant-design-pro/api';
 import {PlusOutlined} from '@ant-design/icons';
 import type {
   ActionType,
