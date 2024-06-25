@@ -2,8 +2,8 @@ package com.api.apiinterface.controller;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
-import com.api.apiinterface.model.User;
-import com.api.apiinterface.utils.SignUtil;
+import com.api.apiclientsdk.model.User;
+import com.api.apiclientsdk.utils.SignUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,8 @@ public class NameController {
     }
 
     @PostMapping("/user")
-    public String getNameByPostWithJson(@RequestBody User user, HttpServletRequest request) throws UnsupportedEncodingException {
+    public String getUsernameByPost(@RequestBody User user,
+                           HttpServletRequest request) throws UnsupportedEncodingException {
         String accessKey = request.getHeader("accessKey");
         String nonce = request.getHeader("nonce");
         String timestamp = request.getHeader("timestamp");

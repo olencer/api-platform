@@ -1,4 +1,4 @@
-package com.api.apiinterface.model;
+package com.api.apiclientsdk.model;
 
 import lombok.Data;
 

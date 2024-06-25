@@ -1,16 +1,20 @@
 package com.api.apiinterface;
 
-import com.api.apiinterface.client.ApiClient;
-import com.api.apiinterface.model.User;
+import com.api.apiclientsdk.client.ApiClient;
+import com.api.apiclientsdk.model.User;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 
-public class ApiClientTests {
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        String accessKey = "api.ak";
-        String secretKey = "api.sk";
+@SpringBootTest
+class ApiClientTests {
+    @Resource
+    private ApiClient apiClient;
 
-        ApiClient apiClient = new ApiClient(accessKey, secretKey);
+    @Test
+    void contextLoads() throws UnsupportedEncodingException {
         String res1 = apiClient.getNameByGet("api1");
         String res2 = apiClient.getNameByPost("api2");
 

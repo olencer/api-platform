@@ -1,4 +1,4 @@
-package com.api.apiinterface.utils;
+package com.api.apiclientsdk.utils;
 
 import cn.hutool.crypto.digest.DigestUtil;
 

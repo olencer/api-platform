@@ -1,12 +1,12 @@
-package com.api.apiinterface.client;
+package com.api.apiclientsdk.client;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import com.api.apiinterface.model.User;
-import com.api.apiinterface.utils.SignUtil;
+import com.api.apiclientsdk.model.User;
+import com.api.apiclientsdk.utils.SignUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
