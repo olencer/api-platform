@@ -32,3 +32,8 @@ mybatis-plus:
       logic-delete-field: isDelete
       logic-delete-value: 1
       logic-not-delete-value: 0
+
+api:
+  client:
+    secret-key: api.sk
+    access-key: api.ak

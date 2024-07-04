@@ -17,13 +17,14 @@ import {FormattedMessage, useIntl} from '@umijs/max';
 import {Button, Drawer, message} from 'antd';
 import React, {useRef, useState} from 'react';
 import {
-  addInterfaceInfoUsingPost, deleteInterfaceInfoUsingPost,
-  listInterfaceInfoByPageUsingGet, updateInterfaceInfoUsingPost
+  addInterfaceInfoUsingPost,
+  deleteInterfaceInfoUsingPost,
+  listInterfaceInfoByPageUsingGet, offlineInterfaceInfoUsingPost,
+  onlineInterfaceInfoUsingPost,
+  updateInterfaceInfoUsingPost
 } from "@/services/api-platform-backend/interfaceInfoController";
-import CreateModal from "@/pages/InterfaceInfo/components/CreateModal";
-import UpdateModal from "@/pages/InterfaceInfo/components/UpdateModal";
-import {val} from "@umijs/utils/compiled/cheerio/lib/api/attributes";
-import {err} from "pino-std-serializers";
+import CreateModal from "@/pages/Admin/InterfaceInfo/components/CreateModal";
+import UpdateModal from "@/pages/Admin/InterfaceInfo/components/UpdateModal";
 
 const TableList: React.FC = () => {
   /**
@@ -120,6 +121,54 @@ const TableList: React.FC = () => {
   };
 
   /**
+   * @en-US Online Interface
+   * @zh-CN 发布接口
+   *
+   * @param fields
+   */
+  const handleOnlineInterfaceInfo = async (fields: API.IdRequest) => {
+    const hide = message.loading('正在发布');
+    try {
+      let res = await onlineInterfaceInfoUsingPost({ ...fields });
+      if (res.data) {
+        hide();
+        message.success('发布成功!');
+        // 刷新页面
+        actionRef.current?.reload();
+        return true;
+      }
+    } catch (error: any) {
+      hide();
+      message.error('发布失败!' + error.message);
+      return false;
+    }
+  };
+
+  /**
+   * @en-US Offline Interface
+   * @zh-CN 下线接口
+   *
+   * @param fields
+   */
+  const handleOfflineInterfaceInfo = async (fields: API.IdRequest) => {
+    const hide = message.loading('正在下线');
+    try {
+      let res = await offlineInterfaceInfoUsingPost({ ...fields });
+      if (res.data) {
+        hide();
+        message.success('下线成功!');
+        // 刷新页面
+        actionRef.current?.reload();
+        return true;
+      }
+    } catch (error: any) {
+      hide();
+      message.error('下线失败!' + error.message);
+      return false;
+    }
+  };
+
+  /**
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
@@ -194,23 +243,49 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-        <a
+        <Button
           key="config"
+          type={"link"}
           onClick={() => {
             handleUpdateModalOpen(true);
             setCurrentRow(record);
           }}
         >
           编辑
-        </a>,
-        <a
+        </Button>,
+
+        record.status === 0 ? (
+          <Button
+            key="online"
+            type={'text'}
+            onClick={() => {
+              handleOnlineInterfaceInfo(record);
+            }}
+          >
+            发布
+          </Button>
+        ) : (
+          <Button
+            key="offline"
+            type={'text'}
+            // danger={true}
+            onClick={() => {
+              handleOfflineInterfaceInfo(record);
+            }}
+          >
+            下线
+          </Button>
+        ),
+        <Button
           key="delete"
+          type={'text'}
+          danger={true}
           onClick={() => {
             handleRemoveInterfaceInfo(record);
           }}
         >
           删除
-        </a>
+        </Button>
       ],
     },
   ];

@@ -51,7 +51,7 @@ export default [
         icon: 'table',
         path: '/admin/interface_info',
         // component: './TableList',
-        component: './InterfaceInfo',
+        component: './Admin/InterfaceInfo',
       }
     ],
   },

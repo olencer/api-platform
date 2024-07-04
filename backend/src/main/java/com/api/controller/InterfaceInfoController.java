@@ -1,10 +1,8 @@
 package com.api.controller;
 
 import com.api.annotation.AuthCheck;
-import com.api.common.BaseResponse;
-import com.api.common.DeleteRequest;
-import com.api.common.ErrorCode;
-import com.api.common.ResultUtils;
+import com.api.apiclientsdk.client.ApiClient;
+import com.api.common.*;
 import com.api.constant.CommonConstant;
 import com.api.exception.BusinessException;
 import com.api.model.dto.interfaceInfo.InterfaceInfoAddRequest;
@@ -12,10 +10,12 @@ import com.api.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.api.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
 import com.api.model.entity.InterfaceInfo;
 import com.api.model.entity.User;
+import com.api.model.enums.InterfaceInfoStatusEnum;
 import com.api.service.InterfaceInfoService;
 import com.api.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -36,6 +37,9 @@ public class InterfaceInfoController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private ApiClient apiClient;
 
     // region 增删改查
 
@@ -191,5 +195,77 @@ public class InterfaceInfoController {
     }
 
     // endregion
+
+
+    /**
+     * 发布
+     *
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/online")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> onlineInterfaceInfo(@RequestBody IdRequest idRequest,
+                                                     HttpServletRequest request) throws UnsupportedEncodingException {
+
+        if (idRequest == null || idRequest.getId() < 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+
+        // 判断接口是否存在
+        long id = idRequest.getId();
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+
+        // 判断接口是否能使用
+        // TODO 根据测试地址来调用
+        // 这里我先用固定的方法进行测试，后面来改
+        com.api.apiclientsdk.model.User user = new com.api.apiclientsdk.model.User();
+        user.setUsername("api");
+        String name = apiClient.getUsernameByPost(user);
+        if (StrUtil.isBlank(name)) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口验证失败");
+        }
+
+        // 更新数据库
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(id);
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.ONLINE.getValue());
+        boolean isSuccessful = interfaceInfoService.updateById(interfaceInfo);
+        return ResultUtils.success(isSuccessful);
+    }
+
+    /**
+     * 下线
+     *
+     * @param idRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/offline")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest,
+                                                     HttpServletRequest request) {
+
+        if (idRequest == null || idRequest.getId() < 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 判断接口是否存在
+        long id = idRequest.getId();
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if (oldInterfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        // 更新数据库
+        InterfaceInfo interfaceInfo = new InterfaceInfo();
+        interfaceInfo.setId(id);
+        interfaceInfo.setStatus(InterfaceInfoStatusEnum.OFFLINE.getValue());
+        boolean isSuccessful = interfaceInfoService.updateById(interfaceInfo);
+        return ResultUtils.success(isSuccessful);
+    }
+
 
 }
