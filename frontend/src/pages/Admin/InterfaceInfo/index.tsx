@@ -257,7 +257,7 @@ const TableList: React.FC = () => {
         record.status === 0 ? (
           <Button
             key="online"
-            type={'text'}
+            type={'link'}
             onClick={() => {
               handleOnlineInterfaceInfo(record);
             }}

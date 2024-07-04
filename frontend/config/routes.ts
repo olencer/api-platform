@@ -29,6 +29,20 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/index',
+    name: '用户主页',
+    icon: 'user',
+    component: './Index',
+  },
+  {
+    // 动态路由
+    path: '/interface_info/:id',
+    name: 'interface info',
+    component: './InterfaceInfo',
+    // 不在菜单页显示
+    hideInMenu: true
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',

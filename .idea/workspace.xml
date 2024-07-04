@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437c2a76-fc13-4e86-a4b6-5177fa3e783a" name="Changes" comment="achieve(开发SDK)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/api/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/api/controller/InterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="437c2a76-fc13-4e86-a4b6-5177fa3e783a" name="Changes" comment="achieve(接口发布、下线)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,6 +76,7 @@
       <workItem from="1719319168156" duration="166000" />
       <workItem from="1720075588775" duration="11000" />
       <workItem from="1720075611869" duration="20000" />
+      <workItem from="1720096201713" duration="80000" />
     </task>
     <task id="LOCAL-00001" summary="achieve(基础增删改查)">
       <option name="closed" value="true" />
@@ -106,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719319197591</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="achieve(接口发布、下线)">
+      <option name="closed" value="true" />
+      <created>1720096278411</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1720096278411</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +143,7 @@
     <MESSAGE value="achieve(项目初始化)" />
     <MESSAGE value="achieve(基础增删改查)" />
     <MESSAGE value="achieve(开发SDK)" />
-    <option name="LAST_COMMIT_MESSAGE" value="achieve(开发SDK)" />
+    <MESSAGE value="achieve(接口发布、下线)" />
+    <option name="LAST_COMMIT_MESSAGE" value="achieve(接口发布、下线)" />
   </component>
 </project>
