@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiClient {
+    private static final String GATEWAY_URL = "http://localhost:8090";
     String accessKey;
     String secretKey;
 
@@ -38,19 +39,19 @@ public class ApiClient {
     public String getNameByGet(String name) {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        return HttpUtil.get("http://localhost:8123/api/name/",  paramMap);
+        return HttpUtil.get(GATEWAY_URL + "/api/name/", paramMap);
     }
 
     public String getNameByPost(String name) {
         // 可以单独传入http参数，这样参数会自动做URL编码，拼接在URL中
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        return HttpUtil.post("http://localhost:8123/api/name/", paramMap);
+        return HttpUtil.post(GATEWAY_URL + "/api/name/", paramMap);
     }
 
     public String getUsernameByPost(User user) throws UnsupportedEncodingException {
         String json = JSONUtil.toJsonStr(user);
-        HttpResponse httpResponse = HttpRequest.post("http://localhost:8123/api/name/user")
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_URL + "/api/name/user")
                 .addHeaders(getHeader(json))
                 .body(json)
                 .execute();

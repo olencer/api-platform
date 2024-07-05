@@ -14,12 +14,12 @@ import java.nio.charset.StandardCharsets;
 @RestController()
 @RequestMapping("/name")
 public class NameController {
-    @GetMapping("/")
+    @GetMapping("/get")
     public String getNameByGet(String name) {
         return "get, your name: " + name;
     }
 
-    @PostMapping("/")
+    @PostMapping("/post")
     public String getNameByPost(@RequestParam String name) {
         return "post, your name: " + name;
     }
@@ -45,7 +45,6 @@ public class NameController {
         }
 
         // TODO 判断随机数nonce
-
         if (!NumberUtil.isNumber(timestamp)) {
             return "timestamp format error";
         }
