@@ -41,8 +41,8 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
+  const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
+  const [selectedRowsState, setSelectedRows] = useState<API.InterfaceInfo[]>([]);
 
   /**
    * @en-US Add node
@@ -199,6 +199,11 @@ const TableList: React.FC = () => {
       title: '统一资源定位',
       dataIndex: 'url',
       valueType: 'text',
+    },
+    {
+      title: '请求参数',
+      dataIndex: 'requestParams',
+      valueType: 'textarea',
     },
     {
       title: '请求头',

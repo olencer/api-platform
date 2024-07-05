@@ -6,7 +6,6 @@ import com.api.mapper.InterfaceInfoMapper;
 import com.api.exception.BusinessException;
 import com.api.common.ErrorCode;
 import com.api.service.InterfaceInfoService;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,7 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
 
         // 创建时，所有参数必须非空
         if (add) {
-            if (StringUtils.isAnyBlank(name, description, url, requestHeader, responseHeader, method) || ObjectUtils.anyNull(userId, status)) {
+            if (StringUtils.isAnyBlank(name, description, url, requestHeader, responseHeader, method)) {
                 throw new BusinessException(ErrorCode.PARAMS_ERROR);
             }
         }

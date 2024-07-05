@@ -1,6 +1,7 @@
 package com.api.controller;
 
 import com.api.annotation.AuthCheck;
+import com.api.constant.UserConstant;
 import com.api.exception.BusinessException;
 import com.api.model.dto.post.PostAddRequest;
 import com.api.model.dto.post.PostQueryRequest;
@@ -149,7 +150,7 @@ public class PostController {
      * @param postQueryRequest
      * @return
      */
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     @GetMapping("/list")
     public BaseResponse<List<Post>> listPost(PostQueryRequest postQueryRequest) {
         Post postQuery = new Post();

@@ -1,13 +1,16 @@
 package com.api.controller;
 
+import cn.hutool.json.JSONUtil;
 import com.api.annotation.AuthCheck;
 import com.api.apiclientsdk.client.ApiClient;
 import com.api.common.*;
 import com.api.constant.CommonConstant;
+import com.api.constant.UserConstant;
 import com.api.exception.BusinessException;
 import com.api.model.dto.interfaceInfo.InterfaceInfoAddRequest;
 import com.api.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.api.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
+import com.api.model.dto.interfaceInfo.InvokeInterfaceRequest;
 import com.api.model.entity.InterfaceInfo;
 import com.api.model.entity.User;
 import com.api.model.enums.InterfaceInfoStatusEnum;
@@ -149,7 +152,7 @@ public class InterfaceInfoController {
      * @param interfaceInfoQueryRequest
      * @return
      */
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     @GetMapping("/list")
     public BaseResponse<List<InterfaceInfo>> listInterfaceInfo(InterfaceInfoQueryRequest interfaceInfoQueryRequest) {
         InterfaceInfo interfaceInfoQuery = new InterfaceInfo();
@@ -205,7 +208,7 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/online")
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> onlineInterfaceInfo(@RequestBody IdRequest idRequest,
                                                      HttpServletRequest request) throws UnsupportedEncodingException {
 
@@ -246,7 +249,7 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/offline")
-    @AuthCheck(mustRole = "admin")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest,
                                                      HttpServletRequest request) {
 
@@ -267,5 +270,37 @@ public class InterfaceInfoController {
         return ResultUtils.success(isSuccessful);
     }
 
+    /**
+     * 在线调用接口
+     *
+     * @param invokeInterfaceRequest 携带id、请求参数
+     * @return data
+     */
+    @PostMapping("/invoke")
+    public BaseResponse<Object> invokeInterface(@RequestBody InvokeInterfaceRequest invokeInterfaceRequest, HttpServletRequest request) throws UnsupportedEncodingException {
+        if (invokeInterfaceRequest == null || invokeInterfaceRequest.getId() < 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 判断接口是否存在
+        long id = invokeInterfaceRequest.getId();
+        InterfaceInfo interfaceInfo = interfaceInfoService.getById(id);
+        if (interfaceInfo == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        if (interfaceInfo.getStatus() != InterfaceInfoStatusEnum.ONLINE.getValue()) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "接口未上线");
+        }
+        // 得到当前用户
+        User loginUser = userService.getLoginUser(request);
+        String accessKey = loginUser.getAccessKey();
+        String secretKey = loginUser.getSecretKey();
+        ApiClient apiClient = new ApiClient(accessKey, secretKey);
+        // 先写死请求
+        String userRequestParams = invokeInterfaceRequest.getRequestParams();
+        com.api.apiclientsdk.model.User user = JSONUtil.toBean(userRequestParams,
+                com.api.apiclientsdk.model.User.class);
+        String result = apiClient.getUsernameByPost(user);
+        return ResultUtils.success(result);
+    }
 
 }

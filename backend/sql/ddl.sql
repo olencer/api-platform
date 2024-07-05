@@ -32,6 +32,7 @@ create table if not exists api.`interface_info`
     `name` varchar(256) not null comment '名称',
     `description` varchar(256) null comment '描述',
     `url` varchar(512) not null comment '接口地址',
+    `requestParams` text null comment '请求参数',
     `requestHeader` text null comment '请求头',
     `responseHeader` text null comment '响应头',
     `status` int default 0 not null comment '接口状态（0-关闭，1-开启）',
@@ -42,6 +43,19 @@ create table if not exists api.`interface_info`
         CURRENT_TIMESTAMP comment '更新时间',
     `isDeleted` tinyint default 0 not null comment '是否删除(0-未删, 1-已删)'
 ) comment '接口信息';
+
+create table if not exists api.`user_interface_info`
+(
+    `id` bigint not null auto_increment comment '主键' primary key,
+    `userId` bigint not null comment '调用用户Id',
+    `interfaceInfoId` bigint not null comment '接口Id',
+    `totalNum` int default 0 not null comment '总调用次数',
+    `leftNum` int default 0 not null comment '剩余调用次数',
+    `status` int default 0 not null comment '0-正常 ，1-禁用',
+    `createTime` datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    `updateTime` datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    `isDelete` tinyint default 0 not null comment '是否删除(0-未删, 1-已删)'
+) comment '用户调用接口关系表';
 
 insert into api.`interface_info` (`name`, `description`, `url`, `requestHeader`, `responseHeader`, `status`, `method`, `userId`)
     values ('廖立轩', '脱颖而出', 'www.foster-larkin.co', '龙嘉懿', '秦天磊', 0, 'GET', 1718083101),
