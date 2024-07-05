@@ -9,3 +9,24 @@ spring:
           uri: http://localhost:8123
           predicates:
             - Path=/api/**
+
+#dubbo:
+#  application:
+#    name: dubbo-springboot-demo-provider
+#    logger: slf4j
+#  protocol:
+#    name: tri
+#    port: 50052
+#  registry:
+#    address: nacos://${nacos.address:127.0.0.1}:8848?username=nacos&password=nacos
+
+dubbo:
+  application:
+    name: dubbo-api-platform-backend-provider
+    logger: slf4j
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://localhost:8848

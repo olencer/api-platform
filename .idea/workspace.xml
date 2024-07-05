@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437c2a76-fc13-4e86-a4b6-5177fa3e783a" name="Changes" comment="achieve(接口调用次数统计)">
+    <list default="true" id="437c2a76-fc13-4e86-a4b6-5177fa3e783a" name="Changes" comment="achieve(网关)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-client-sdk/src/main/java/com/api/apiclientsdk/client/ApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-client-sdk/src/main/java/com/api/apiclientsdk/client/ApiClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-interface/src/main/java/com/api/apiinterface/controller/NameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-interface/src/main/java/com/api/apiinterface/controller/NameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +83,8 @@
       <workItem from="1720104377712" duration="54000" />
       <workItem from="1720144689101" duration="476000" />
       <workItem from="1720152330405" duration="7000" />
+      <workItem from="1720153453174" duration="26000" />
+      <workItem from="1720166148640" duration="29000" />
     </task>
     <task id="LOCAL-00001" summary="achieve(基础增删改查)">
       <option name="closed" value="true" />
@@ -134,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720144716627</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="achieve(网关)">
+      <option name="closed" value="true" />
+      <created>1720153472853</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1720153472853</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +179,7 @@
     <MESSAGE value="achieve(用户主页)" />
     <MESSAGE value="achieve(在线调用)" />
     <MESSAGE value="achieve(接口调用次数统计)" />
-    <option name="LAST_COMMIT_MESSAGE" value="achieve(接口调用次数统计)" />
+    <MESSAGE value="achieve(网关)" />
+    <option name="LAST_COMMIT_MESSAGE" value="achieve(网关)" />
   </component>
 </project>
